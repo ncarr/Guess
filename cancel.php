@@ -1,7 +1,20 @@
+<?php
+session_start();
+if ($_SESSION["gid"]) {
+    $g = true;
+    if ($_SESSION["sid"]) {
+        $s = true;
+        $group = json_decode(file_get_contents("groups/" . $_SESSION["gid"] . ".txt"), true);
+        unset($group["members"][$_SESSION["sid"]]);
+        file_put_contents("groups/" . $_SESSION["gid"] . ".txt", json_encode($group));
+    }
+}
+session_destroy();
+?>
 <!doctype html>
 <html>
     <head>
-        <title>Invalid Group Code</title>
+        <title>Cancel Group</title>
         <link href='style.css' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
@@ -11,7 +24,11 @@
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
     <body>
-        <h1>Invalid Group Code</h1>
-        <p>Please check the link you used to join for spelling errors.</p>
+        <h1>Guess Word Game</h1>
+        <?php if (!$g && !$s) { ?>
+        <p>Nothing to cancel.</p>
+        <?php } else { ?>
+        <p>Cancelled.</p>
+        <?php } ?>
     </body>
 </html>
