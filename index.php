@@ -26,6 +26,28 @@ if ($_GET["g"]) {
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script>
+            var refcheck,
+            found;
+            function check() {
+                $.post("refresh.php", { p: "index" })
+                .done(function (data) {
+                    if (data == "1") {
+                        window.location = "gameclient.php";
+                        clearInterval(refcheck);
+                    }
+                })
+            }
+            $(document).ready(function () {
+                refcheck = setInterval(check, 5000);
+            });
+            $([window, document]).blur(function () {
+                clearInterval(refcheck);
+            }).focus(function () {
+                check();
+                refcheck = setInterval(check, 5000);
+            });
+        </script>
     <body>
         <h1>Guess Word Game</h1>
         <h2>Welcome to the game</h2>
