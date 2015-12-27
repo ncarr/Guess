@@ -41,29 +41,29 @@ if (!$_SESSION["sid"] || !$_SESSION["gid"]) {
                 $.post("refresh.php", { p: "gameserver" })
                 .done(function (data) {
                     if (data) {
-                        if (data[0] == -2) {
+                        if (data[0][1] == -2) {
                             $("td").last().html("Game ended before answer.");
-                        } else if (data[0] == -1) {
+                        } else if (data[0][1] == -1) {
                             $("td").last().html("<i>Currently being guessed</i>");
-                        } else if (data[0] == 1) {
+                        } else if (data[0][1] == 1) {
                             $("td").last().html("Passed");
-                        } else if (data[0] == 2) {
+                        } else if (data[0][1] == 2) {
                             $("td").last().html("Guessed");
                         }
                         for (i = 1; i < count(data); i++) {
-                            if (data[2] != -1) {
-                                wordornot = data[1];
+                            if (data[i][1] != -1) {
+                                wordornot = data[i][0];
                             } else {
                                 wordornot = "";
                             }
                             $("table").append('<tr><td class="round-count">Round ' + toString(parseInt($(".round-count").last().html()) + 1) + '</td><td class="word-cell">' + wordornot + '</td><td class="result-cell"></td></tr>');
-                            if (data[2] == -2) {
+                            if (data[i][1] == -2) {
                                 $("td").last().html("Game ended before answer.");
-                            } else if (data[2] == -1) {
+                            } else if (data[i][1] == -1) {
                                 $("td").last().html("<i>Currently being guessed</i>");
-                            } else if (data[2] == 1) {
+                            } else if (data[i][1] == 1) {
                                 $("td").last().html("Passed");
-                            } else if (data[2] == 2) {
+                            } else if (data[i][1] == 2) {
                                 $("td").last().html("Guessed");
                             }
                         }

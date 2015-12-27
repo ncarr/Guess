@@ -20,11 +20,11 @@ if ($_POST["p"] == "index") {
     $new = array_slice($group["results"], $_SESSION["s_current"]);
     $_SESSION["s_current"] = count($group["results"] - 1);
     foreach ($new as &$i) {
-        if ($i[0] == 0) {
-            $i[0] = 1;
+        if ($i[1] == 0) {
+            $i[1] = 1;
         }
-            if ($i[0] == 1) {
-                $i[0] = 2;
+            if ($i[1] == 1) {
+                $i[1] = 2;
             }
     }
     echo json_encode($new);
