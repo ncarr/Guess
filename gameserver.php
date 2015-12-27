@@ -50,20 +50,22 @@ if (!$_SESSION["sid"] || !$_SESSION["gid"]) {
                         } else if (data[0] == 2) {
                             $("td").last().html("Guessed");
                         }
-                        if (data[2] != -1) {
-                            wordornot = data[1];
-                        } else {
-                            wordornot = "";
-                        }
-                        $("table").append('<tr><td class="round-count">Round ' + toString(parseInt($(".round-count").last().html()) + 1) + '</td><td class="word-cell">' + wordornot + '</td><td class="result-cell"></td></tr>');
-                        if (data[2] == -2) {
-                            $("td").last().html("Game ended before answer.");
-                        } else if (data[2] == -1) {
-                            $("td").last().html("<i>Currently being guessed</i>");
-                        } else if (data[2] == 1) {
-                            $("td").last().html("Passed");
-                        } else if (data[2] == 2) {
-                            $("td").last().html("Guessed");
+                        for (i = 1; i < count(data); i++) {
+                            if (data[2] != -1) {
+                                wordornot = data[1];
+                            } else {
+                                wordornot = "";
+                            }
+                            $("table").append('<tr><td class="round-count">Round ' + toString(parseInt($(".round-count").last().html()) + 1) + '</td><td class="word-cell">' + wordornot + '</td><td class="result-cell"></td></tr>');
+                            if (data[2] == -2) {
+                                $("td").last().html("Game ended before answer.");
+                            } else if (data[2] == -1) {
+                                $("td").last().html("<i>Currently being guessed</i>");
+                            } else if (data[2] == 1) {
+                                $("td").last().html("Passed");
+                            } else if (data[2] == 2) {
+                                $("td").last().html("Guessed");
+                            }
                         }
                     }
                 })
