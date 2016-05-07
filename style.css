@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+}
+body {
+    font-family: "Roboto";
+}
+h1, h2 {
+    font-family: Montserrat;
+    font-weight: 300;
+}
+h1 {
+    width: 100%;
+    background-color: #dddddd;
+    padding: 10px;
+    display: block;
+}
+table {
+    text-align: left;
+    padding: 10px;
+}
+a.cancel {
+    background-color: red;
+    display: block;
+    padding:10px;
+}

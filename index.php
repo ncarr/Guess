@@ -51,7 +51,7 @@ if ($_GET["g"]) {
     <body>
         <h1>Guess Word Game</h1>
         <h2>Welcome to the game</h2>
-        <?php if ($_SESSION["gid"] && $_SESSION["sid"]) { ?>
+        <?php if ($_GET["g"]) { ?>
         <p>You're all set! Come back to this page when the game starts and it will be ready.</p>
         <a href="cancel.php" class="cancel">Cancel</a>
         <a href="serverhelp.html">Looking to start your own game?</a>

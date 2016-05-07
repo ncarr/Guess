@@ -1,6 +1,10 @@
 <?php
 session_start();
-$group = json_decode(file_get_contents("groups/" . $_SESSION["gid"] . ".txt"), true);
+if (file_exists("groups/" . $_SESSION["gid"] . ".txt")) {
+    $group = json_decode(file_get_contents("groups/" . $_SESSION["gid"] . ".txt"), true);
+} else {
+    $group = array();
+}
 if ($_POST["p"] == "index") {
     if ($group["started"]) {
         echo 1;
@@ -15,10 +19,9 @@ if ($_POST["p"] == "index") {
     } else {
         echo 1;
     }
-}
 } elseif ($_POST["p"] == "gameserver" && $_SESSION["last_checked"] < $group["last_public_update"]) {
     $new = array_slice($group["results"], $_SESSION["s_current"]);
-    $_SESSION["s_current"] = count($group["results"] - 1);
+    $_SESSION["s_current"] = count($group["results"]) - 1;
     foreach ($new as &$i) {
         if ($i[1] == 0) {
             $i[1] = 1;

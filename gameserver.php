@@ -40,7 +40,9 @@ if (!$_SESSION["sid"] || !$_SESSION["gid"]) {
             function check() {
                 $.post("refresh.php", { p: "gameserver" })
                 .done(function (data) {
+                    data = $.parseJSON(data);
                     if (data) {
+                        console.log(data[0][1])
                         if (data[0][1] == -2) {
                             $("td").last().html("Game ended before answer.");
                         } else if (data[0][1] == -1) {
@@ -50,7 +52,7 @@ if (!$_SESSION["sid"] || !$_SESSION["gid"]) {
                         } else if (data[0][1] == 2) {
                             $("td").last().html("Guessed");
                         }
-                        for (i = 1; i < count(data); i++) {
+                        for (i = 1; i < data.length; i++) {
                             if (data[i][1] != -1) {
                                 wordornot = data[i][0];
                             } else {
@@ -73,7 +75,7 @@ if (!$_SESSION["sid"] || !$_SESSION["gid"]) {
             function countdown() {
                 if (parseInt($(".countdown").html()) <= 0) {
                     clearInterval(timecount);
-                    // do something when time runs out
+                    document.location = "resetserver.php";
                 } else {
                     $(".countdown").html(parseInt($(".countdown").html()) - 1);
                 }
